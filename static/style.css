@@ -31,3 +31,7 @@ tr th, tr td {
   background-color: #f3e2b7ee;
   padding: 8px;
 }
+
+.fa-spinner {
+  animation: fa-spin 2s infinite linear;
+}
