@@ -52,13 +52,19 @@ def truecaller(request):
                 ('countryCode', 'in'),
                 ('q', number),
             )
+            try:
+                res = requests.get('https://www.truecaller.com/api/search', headers=headers, params=params)
+            except:
+                pass
 
-            res = requests.get('https://www.truecaller.com/api/search', headers=headers, params=params)
-            print('Truecaller response', res.status_code)
-            truecaller_data = json.loads(str(res.content, 'utf-8'))
+            content = json.loads(res.content.decode('utf8')).get('data', [])
+            truecaller_data = {
+                'number': number,
+                'score': content[0].get('phones')[0].get('spamScore', 0),
+                'name': content[0].get('name', 'unknown')
+            }
 
-            data = truecaller_data.get('data')
-            return HttpResponse(json.dumps(data))
+            return JsonResponse(truecaller_data)
     else:
         data = 'no data'
 
