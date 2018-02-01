@@ -1,0 +1,33 @@
+/* Styles go here */
+
+.score {
+  text-align: center;
+}
+
+.thead {
+  background-color: #fd7e14;
+  color: white;
+}
+
+tr th, tr td {
+    text-align: center;
+}
+
+.fa-check-square {
+  color: green;
+}
+
+.fa-minus-square {
+  color:red;
+}
+
+.reportContainer {
+  margin-top: 20px;
+}
+
+.report-title {
+  margin-bottom:10px;
+  text-align: center;
+  background-color: #f3e2b7ee;
+  padding: 8px;
+}

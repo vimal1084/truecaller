@@ -2,8 +2,9 @@ import requests
 from django import forms
 from django.shortcuts import get_object_or_404, render
 import json
-from django.http import HttpResponse
+from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+import time
 
 class TruecallerForm(forms.Form):
     number = forms.CharField(max_length=50)
@@ -13,8 +14,28 @@ class TruecallerForm(forms.Form):
 def truecaller(request):
     if request.method == 'POST':
         form = TruecallerForm(request.POST)
-        print(form['number'].value())
+        
+        number = form['number'].value()
         if form.is_valid():
+            time.sleep(1)
+            if number == '8122195911':                
+                return JsonResponse(
+                    {
+                        'number': number,
+                        'score': 17,
+                        'name': 'Credit card'
+                    }
+                )
+            elif number == '8122195912':
+                return JsonResponse(
+                    {
+                        'number': number,
+                        'score': 456,
+                        'name': 'Home loan'
+                    }
+                )
+           
+
             headers = {
                 'accept-encoding': 'gzip, deflate, br',
                 'accept-language': 'en-US,en;q=0.8',
@@ -29,11 +50,11 @@ def truecaller(request):
             params = (
                 ('type', '4'),
                 ('countryCode', 'in'),
-                ('q', form['number'].value()),
+                ('q', number),
             )
 
             res = requests.get('https://www.truecaller.com/api/search', headers=headers, params=params)
-
+            print('Truecaller response', res.status_code)
             truecaller_data = json.loads(str(res.content, 'utf-8'))
 
             data = truecaller_data.get('data')
