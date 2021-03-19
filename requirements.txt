@@ -11,7 +11,7 @@ configparser==3.5.0
 cryptography==2.0
 Django==1.11.7
 django-filter==1.1.0
-djangorestframework==3.7.1
+djangorestframework==3.11.2
 enum34==1.1.6
 Flask==0.12.2
 futures==3.2.0
